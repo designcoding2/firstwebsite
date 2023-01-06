@@ -1,17 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Me</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Me</title>
+    </head>
+    <body>
 
-    <h1>My Contact Details</h1>
-    <p>Address: Iljuseo-ro, Hallim-eup, Jeju-si, Jeju-do, Republic of Korea</p>
-    <p>Mobile: 010-1234-5678</p>
-    <p>Email: rick@example.com</p>
+        <h1>My Contact Details</h1>
+        <p>Address: Iljuseo-ro, Hallim-eup, Jeju-si, Jeju-do, Republic of Korea</p>
+        <p>Mobile: 010-1234-5678</p>
+        <p>Email: rick@example.com</p>
 
-</body>
+
+        <hr>
+        <label for="wantToSignup">Do you want to sign up to the email list?</label>
+        <input type="checkbox" id="wantToSignup">
+        <br><br>
+        <form id="signupForm">
+            <label>Name: </label>
+            <input type="text" name="userName">
+            <br><br>
+            <label>Email: </label>
+            <input type="email" name="userEmail">
+            <br><br>
+            <label>Message: </label><br>
+            <textarea rows="10" cols="30" name="userMessage"></textarea>
+            <br><br>
+            <input type="submit">        
+        </form>
+
+        <!-- Don't modify: Start-->
+        <script>
+            const signupForm = document.getElementById('signupForm')
+            const toggleSignupForm = () => {
+                const wantToSignup = document.getElementById('wantToSignup')
+                if (!wantToSignup.checked) signupForm.style.display = 'none'
+                else signupForm.style.display = 'block'
+            }
+            toggleSignupForm()
+            wantToSignup.addEventListener('click', toggleSignupForm)
+            const sendDataToServer = () => {
+                const signupForm = document.getElementById('signupForm')
+                const formData = new FormData(signupForm)
+                for (const [name, value] of formData) {
+                    if (value === '') {
+                        alert('Please enter your name, email and message!')
+                        return
+                    }
+                }
+                const formDataObj = {}
+                for (const [name, value] of formData) {
+                    formDataObj[name] = value
+                }
+                alert(`
+                    Name: ${formDataObj.userName} 
+                    Email: ${formDataObj.userEmail}
+                    Message: ${formDataObj.userMessage.substring(0, 10) + '...'}
+                    
+                    Request to signup to the email list...
+                `)
+                alert(`Signup is completed.`)
+            }
+            signupForm.addEventListener('submit', sendDataToServer)
+        </script>
+        <!-- Don't modify: End -->
+
+    </body>
 </html>
